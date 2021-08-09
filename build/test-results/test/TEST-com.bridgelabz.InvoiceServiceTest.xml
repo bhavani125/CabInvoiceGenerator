@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.bridgelabz.InvoiceServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-08-09T14:31:20" hostname="DESKTOP-1A5CKOQ" time="0.06">
+<testsuite name="com.bridgelabz.InvoiceServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-08-09T17:53:36" hostname="DESKTOP-1A5CKOQ" time="0.013">
   <properties/>
-  <testcase name="WhenGivenMultipleRidesShouldReturnSizeAndAverageFare" classname="com.bridgelabz.InvoiceServiceTest" time="0.06"/>
-  <system-out><![CDATA[Total Fare = 1862.0
-Number of ride = 4
-Average Total Fare 465.5
-]]></system-out>
+  <testcase name="WhenGivenMultipleRides_ShouldReturnInVoiceSummary" classname="com.bridgelabz.InvoiceServiceTest" time="0.009"/>
+  <testcase name="WhenGivenLessDistanceAndTimeShouldReturnMiniFare" classname="com.bridgelabz.InvoiceServiceTest" time="0.0"/>
+  <testcase name="whenGivenDistanceAndTimeShouldReturnTotalFare" classname="com.bridgelabz.InvoiceServiceTest" time="0.001"/>
+  <testcase name="WhenGivenUserIDShouldGetTheListOfRidesFromRepoReturnInVoice" classname="com.bridgelabz.InvoiceServiceTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -1,9 +1,20 @@
 package com.bridgelabz;
 
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.Hashtable;
+
 public class InvoiceServiceTest {
+    InvoiceGenerator invoiceGenerator;
+
+    @Before
+    public void setUp() throws Exception  {
+        invoiceGenerator = new InvoiceGenerator();
+    }
+
     @Test
     public void whenGivenDistanceAndTimeShouldReturnTotalFare() {
         //Creating object for InvoiceGenerator class
@@ -25,38 +36,30 @@ public class InvoiceServiceTest {
     }
 
     @Test
-    public void whenGivenMultipleRidesShouldReturnTotalFare() {
-        //Creating object for InvoiceGenerator class
-        InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
-        //Creating rides object for Rides class
-        Ride[] rides = { new Ride(2.0, 5),
-                new Ride(0.1, 1)};
-        //calling calculateTotalFare method
-        double totalFare = invoiceGenerator.calculateTotalFare(rides);
-        System.out.println("Total Fare = "+totalFare);
-        Assert.assertEquals(30, totalFare,0.0);
-    }
-
-    @Test
-    public void WhenGivenMultipleRidesShouldReturnSizeAndAverageFare() {
+    public void  WhenGivenMultipleRides_ShouldReturnInVoiceSummary() {
         //Creating object for InvoiceGenerator class
         InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
         //Creating rides object for Rides class taking Multiple rides
-        Ride[] rides = { new Ride(20.0,4),
-                new Ride(45.0,1),
-                new Ride(75.0,1),
-                new Ride(45.5,1)};
-        //calling calculateTotalFare method
-        double totalFare = invoiceGenerator.calculateTotalFare(rides);
-        int numberOfRides = invoiceGenerator.getNumberOfRides(rides);
-        double averageTotalFare = invoiceGenerator.calculateAverageFarePerRide(rides);
-        //printing the totalFare,numberOfRides,averageTotalFare
-        System.out.println("Total Fare = " +totalFare);
-        System.out.println("Number of ride = " +numberOfRides);
-        System.out.println("Average Total Fare " +averageTotalFare);
-
-        Assert.assertEquals(1862,totalFare,0.0);
-        Assert.assertEquals(4,numberOfRides);
-        Assert.assertEquals(465,averageTotalFare,0.5);
+        Ride[] rides = {  new Ride(2.0, 5),
+                new Ride(0.1, 1)
+        };
+        //calling calculateFare method here
+        InvoiceSummary invoiceSummary = invoiceGenerator.calculateFare(rides);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30);
+        Assert.assertEquals(invoiceSummary, expectedInvoiceSummary);
     }
+
+    @Test
+    public void WhenGivenUserIDShouldGetTheListOfRidesFromRepoReturnInVoice() {
+        String userId="Bhavani";
+        //Creating object for InvoiceGenerator class
+        InvoiceGenerator generator = new InvoiceGenerator();
+        Ride[] rides = { new Ride(2.0, 5),
+                new Ride(0.1, 1)};
+        generator.addRides(userId,rides);
+        InvoiceSummary invoiceSummary=generator.getInvoiceSummary(userId);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30);
+        Assert.assertEquals(invoiceSummary, expectedInvoiceSummary);
+    }
+
 }
