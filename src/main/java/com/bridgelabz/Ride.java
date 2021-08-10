@@ -3,16 +3,19 @@ package com.bridgelabz;
 public class Ride {
 
     //constant variables
-    private final int time;
-    private double distance ;
+    public double distance;
+    public int time;;
+    public final CabRide cabRide;
 
     //Creating Constructor
-    public Ride(double distance, int time) {
+    public Ride(CabRide ride, double distance, int time) {
         this.distance = distance;
         this.time = time;
+        this.cabRide=ride;
     }
 
     public int getTime() {
+
         return time;
     }
 

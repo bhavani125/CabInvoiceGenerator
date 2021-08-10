@@ -2,18 +2,11 @@ package com.bridgelabz;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.Hashtable;
 
 public class InvoiceServiceTest {
-    InvoiceGenerator invoiceGenerator;
 
-    @Before
-    public void setUp() throws Exception  {
-        invoiceGenerator = new InvoiceGenerator();
-    }
 
     @Test
     public void whenGivenDistanceAndTimeShouldReturnTotalFare() {
@@ -36,12 +29,12 @@ public class InvoiceServiceTest {
     }
 
     @Test
-    public void  WhenGivenMultipleRides_ShouldReturnInVoiceSummary() {
+    public void  WhenGivenMultipleRidesShouldReturnInVoiceSummary() {
         //Creating object for InvoiceGenerator class
         InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
         //Creating rides object for Rides class taking Multiple rides
-        Ride[] rides = {  new Ride(2.0, 5),
-                new Ride(0.1, 1)
+        Ride[] rides = {  new Ride(CabRide.NORMAL,2.0, 5),
+                new Ride(CabRide.NORMAL,0.1, 1)
         };
         //calling calculateFare method here
         InvoiceSummary invoiceSummary = invoiceGenerator.calculateFare(rides);
@@ -54,12 +47,27 @@ public class InvoiceServiceTest {
         String userId="Bhavani";
         //Creating object for InvoiceGenerator class
         InvoiceGenerator generator = new InvoiceGenerator();
-        Ride[] rides = { new Ride(2.0, 5),
-                new Ride(0.1, 1)};
+        Ride[] rides = { new Ride(CabRide.NORMAL,2.0, 5),
+                new Ride(CabRide.NORMAL,0.1, 1)};
         generator.addRides(userId,rides);
         InvoiceSummary invoiceSummary=generator.getInvoiceSummary(userId);
         InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30);
         Assert.assertEquals(invoiceSummary, expectedInvoiceSummary);
+    }
+
+    @Test
+    public void  givenPremiumAndNormalRideForUserIdShouldReturnInvoiceSummary() {
+      String userId = "user1";
+      InvoiceGenerator generator = new InvoiceGenerator();
+      RideRepository  rideRepository = new RideRepository();
+      generator.setRideRepository(rideRepository);
+      Ride[] rides = new Ride[]{
+              new Ride(CabRide.NORMAL, 2.0, 5),
+              new Ride(CabRide.PREMIUM, 0.1, 1)};
+      generator.addRides(userId, rides);
+      InvoiceSummary invoiceSummary = generator.getInvoiceSummary(userId);
+        InvoiceSummary expectedInvoice = new InvoiceSummary(2,45.0);
+      Assert.assertEquals(invoiceSummary, expectedInvoice);
     }
 
 }
